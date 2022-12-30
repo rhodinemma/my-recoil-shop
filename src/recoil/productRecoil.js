@@ -1,4 +1,4 @@
-import { atom } from "recoil";
+import { atom, selector } from "recoil";
 
 export const productState = atom({
   key: "productState",
@@ -770,4 +770,30 @@ export const searchTextState = atom({
 export const productFilteredState = atom({
   key: "productFilteredState",
   default: "",
+});
+
+export const filteredProducts = selector({
+  key: "filteredProducts",
+  get: ({ get }) => {
+    const products = get(productState);
+    const searchText = get(searchTextState);
+    const filterItem = get(productFilteredState);
+    let filteredProducts = [];
+    const regex = new RegExp(searchText, "i");
+    filteredProducts = products
+      .filter((product) => product.name.match(regex))
+      .filter((product) =>
+        filterItem === "" ? true : product.type === filterItem
+      );
+
+    return filteredProducts;
+  },
+});
+
+export const filteredCounts = selector({
+  key: "filteredCounts",
+  get: ({ get }) => {
+    let filteredProductsCount = get(filteredProducts);
+    return filteredProductsCount.length;
+  },
 });
