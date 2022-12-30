@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "../layout/Navbar";
 import Sidebar from "../layout/Sidebar";
+import ProductList from "../products/ProductList";
 
 const Home = () => {
   return (
@@ -15,7 +16,9 @@ const Home = () => {
                   <Sidebar />
                 </div>
               </div>
-              <div className="column is-9">Products will appear here</div>
+              <div className="column is-9">
+                <ProductList />
+              </div>
             </div>
           </div>
         </div>
